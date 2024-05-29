@@ -1,0 +1,58 @@
+#! /usr/bin/python
+from lib.Argument import Argument
+from lib.Hashes import Hashes
+import os
+import sys
+
+def main():
+    a = Argument(sys.argv)
+    h = Hashes(sys.argv)
+    
+    def print_helper():
+        print("USAGE : --filepath=<PathOfTheFile> \t --secret=<PassCode> \t --encryption=<TypeOfEncryption>")
+        print("USAGE : Command is not found")
+    def encryption():
+        print("USAGE : --encryption=<TypeOfEncryption> is required")
+    def secret():
+        print("USAGE : --secret=<PassCode> is required")
+    def filepath():
+        print("USAGE :  --filepath=<PathOfTheFile> is required")
+    try:
+        if a.hasOption("--filepath"):
+            path_of_the_file = a.getOptionValue("--file")
+            file_name = os.path.basename(path_of_the_file)
+            if a.hasOptions("--secret"):
+                pass_code = a.getOptionValue("--secret")
+                if a.hasOptions("--encryption"):
+                    en_algo = a.getOptionValue("--encryption")
+                    password_encrypted_key  = h.hash.encrypt(pass_code.encode())  
+                    try : 
+                        with open(path_of_the_file, 'rb') as file:
+                            file_data = file.read()
+                        encrypted_file_data = h.hash.encrypt(file_data)
+                    except FileNotFoundError:
+                        print("USAGE : File name {} is not found at the given path {}".format(file_name,path_of_the_file))
+                    except Exception as e:
+                        print("USAGE : Please give the correct item")
+                    encrypted_file_name = file_name + ".enc"
+                    with open(encrypted_file_name, 'wb') as encrypted_file:
+                        encrypted_file.write(password_encrypted_key)
+                        encrypted_file.write(encrypted_file_data) 
+                else :
+                    encryption()
+                    print_helper()
+            else:
+                secret()
+                print_helper()
+        else:
+            filepath()
+            print_helper()
+                                
+    except Exception as e:
+        print_helper()
+
+if __name__ == "__main__":
+    main()
+
+        
+        
