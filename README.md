@@ -1,7 +1,9 @@
 ### Prerequisites : 
-```
-This tool need cryptography 
-```
+	Python Modules like:
+	- Cryptography
+	- Sys
+	- Hashes
+	 
 ### On Ubuntu or Debian :
 ```
 sudo apt install encrypto
@@ -16,15 +18,15 @@ brew install encrypto
 ```
 ### --filepath : 
 ```
-jevaakharthik@Jevaa $ encrypto --filepath=~/Downloads/sample.txt
+jevaakharthik@Jevaa$ encrypto --filepath=~/Downloads/sample.txt
 ```
 ### --secrct :
 ```
-jevaakharthik@Jevaa $ encrypto --filepath=~/Downloads/sample.txt --secret=jevaa@123
+jevaakharthik@Jevaa$ encrypto --filepath=~/Downloads/sample.txt --secret=jevaa@123
 ```
 ### --encryption :
 ```
-jevaakharthik@Jevaa $ encrypto --filepath=~/Downloads/sample.txt --secret=jevaa@123 --encryption=<TypeOfEncryption>
+jevaakharthik@Jevaa$ encrypto --filepath=~/Downloads/sample.txt --secret=jevaa@123 --encryption=<TypeOfEncryption>
 ```
 ### Type of Encryption :
 
