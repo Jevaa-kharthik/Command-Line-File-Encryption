@@ -7,6 +7,21 @@ This project provides a command line utility to encrypt files using various hash
 - Command line interface for ease of use.
 - Modular design for better maintainability.
 
+## Encryption Algorithms Supported
+The following encryption (hashing) algorithms are supported:
+
+- **SHA1**
+- **SHA224**
+- **SHA256**
+- **SHA384**
+- **SHA512**
+- **SHA3_224**
+- **SHA3_256**
+- **SHA3_384**
+- **SHA3_512**
+- **SHA512_224**
+- **SHAKE128**
+
 ## Requirements
 - Python 3.x
 - `cryptography` library
@@ -26,18 +41,3 @@ This project provides a command line utility to encrypt files using various hash
 To encrypt a file, use the following command:
 ```sh
 python Encrypto.py --filepath=<PathOfTheFile> --secret=<PassCode> --encryption=<TypeOfEncryption>
-
-## Encryption Algorithms Supported
-The following encryption (hashing) algorithms are supported:
-
-- **SHA1**
-- **SHA224**
-- **SHA256**
-- **SHA384**
-- **SHA512**
-- **SHA3_224**
-- **SHA3_256**
-- **SHA3_384**
-- **SHA3_512**
-- **SHA512_224**
-- **SHAKE128**
