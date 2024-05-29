@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python
 from lib.Argument import Argument
 from lib.Hashes import Hashes
 import os
@@ -6,39 +6,45 @@ import sys
 
 def main():
     a = Argument(sys.argv)
-    h = Hashes(sys.argv)
+    h = Hashes()
     
     def print_helper():
         print("USAGE : --filepath=<PathOfTheFile> \t --secret=<PassCode> \t --encryption=<TypeOfEncryption>")
-        print("USAGE : Command is not found")
+    
     def encryption():
         print("USAGE : --encryption=<TypeOfEncryption> is required")
+    
     def secret():
         print("USAGE : --secret=<PassCode> is required")
+    
     def filepath():
         print("USAGE :  --filepath=<PathOfTheFile> is required")
+
     try:
         if a.hasOption("--filepath"):
-            path_of_the_file = a.getOptionValue("--file")
+            path_of_the_file = a.getOptionValue("--filepath")
             file_name = os.path.basename(path_of_the_file)
-            if a.hasOptions("--secret"):
+            if a.hasOption("--secret"):
                 pass_code = a.getOptionValue("--secret")
-                if a.hasOptions("--encryption"):
+                if a.hasOption("--encryption"):
                     en_algo = a.getOptionValue("--encryption")
-                    password_encrypted_key  = h.hash.encrypt(pass_code.encode())  
-                    try : 
+                    password_encrypted_key = h.hash(pass_code, en_algo)  # Use hash method correctly
+                    try:
                         with open(path_of_the_file, 'rb') as file:
                             file_data = file.read()
-                        encrypted_file_data = h.hash.encrypt(file_data)
+                        encrypted_file_data = h.hash(file_data, en_algo)  # Use hash method correctly
                     except FileNotFoundError:
-                        print("USAGE : File name {} is not found at the given path {}".format(file_name,path_of_the_file))
+                        print(f"USAGE : File name {file_name} is not found at the given path {path_of_the_file}")
+                        return
                     except Exception as e:
                         print("USAGE : Please give the correct item")
+                        return
+                    
                     encrypted_file_name = file_name + ".enc"
                     with open(encrypted_file_name, 'wb') as encrypted_file:
                         encrypted_file.write(password_encrypted_key)
-                        encrypted_file.write(encrypted_file_data) 
-                else :
+                        encrypted_file.write(encrypted_file_data)
+                else:
                     encryption()
                     print_helper()
             else:
@@ -49,10 +55,8 @@ def main():
             print_helper()
                                 
     except Exception as e:
+        print(e)
         print_helper()
 
 if __name__ == "__main__":
     main()
-
-        
-        
